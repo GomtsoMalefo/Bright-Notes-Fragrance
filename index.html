@@ -28,7 +28,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.55 var(--font-body); }
+    body { margin: 0; background-color: var(--paper); background-image: repeating-linear-gradient(135deg, rgba(189, 55, 107, .045) 0 1px, transparent 1px 26px), linear-gradient(110deg, #fff1d7 0%, #fff8f2 46%, #e7faf5 100%); background-attachment: fixed; color: var(--ink); font: 18px/1.55 var(--font-body); }
     button, select, a { font: inherit; }
     button, select { color: inherit; }
     a { color: inherit; }
@@ -112,6 +112,10 @@
     .remove-button { color: #9b2445; }
     .eco-option { display: flex; align-items: flex-start; gap: 11px; margin: 18px 0; font-size: .95rem; line-height: 1.45; }
     .eco-option input { width: 22px; height: 22px; flex: 0 0 auto; margin-top: 2px; accent-color: #26736b; }
+    .delivery-field { display: grid; gap: 7px; margin: 20px 0; }
+    .delivery-field label { font-weight: 700; }
+    .delivery-select { width: 100%; min-height: 50px; padding: 9px 11px; border: 2px solid var(--line); border-radius: 5px; background: white; font-weight: 600; }
+    .delivery-note { margin: 0; color: #594f59; font-size: .88rem; }
     .cart-total { display: flex; justify-content: space-between; margin: 20px 0; font-size: 1.2rem; font-weight: 700; }
     .checkout-button { width: 100%; padding: 11px; background: var(--lime); }
     .checkout-button:disabled { opacity: .55; cursor: not-allowed; }
@@ -216,6 +220,16 @@
   <aside class="cart-panel" id="cart-panel" aria-label="Shopping cart" aria-hidden="true" hidden>
     <div class="cart-heading"><h2>Your Cart</h2><button class="close-cart" id="close-cart" type="button" aria-label="Close cart">Close</button></div>
     <div id="cart-items"></div>
+    <div class="delivery-field">
+      <label for="delivery-method">Choose delivery</label>
+      <select class="delivery-select" id="delivery-method">
+        <option value="">Select a delivery option</option>
+        <option value="PAXI">PAXI parcel delivery</option>
+        <option value="Uber">Uber delivery</option>
+        <option value="Bolt Parcel">Bolt Parcel delivery</option>
+      </select>
+      <p class="delivery-note">Delivery cost will be confirmed when we contact you on WhatsApp.</p>
+    </div>
     <label class="eco-option"><input id="eco-packaging" type="checkbox" /><span>Please use minimal, recyclable packaging if available.</span></label>
     <div class="cart-total"><span>Total</span><span id="cart-total">R0</span></div>
     <button class="checkout-button" id="checkout" type="button" disabled>Place order via WhatsApp</button>
@@ -226,8 +240,7 @@
   <script>
     const sizes = [
       { label: "30 ml", price: 100 },
-      { label: "50 ml", price: 200 },
-      { label: "100 ml", price: 300 }
+      { label: "50 ml", price: 200 }
     ];
 
     const products = {
@@ -254,6 +267,10 @@
     function renderProducts(category, items) {
       const container = document.getElementById(`${category}-products`);
       items.forEach((product, index) => {
+        const productSizes = [
+          ...sizes,
+          { label: "100 ml", price: ["urban-elixir", "art-of-arabia"].includes(product.id) ? 900 : 350 }
+        ];
         const card = document.createElement("article");
         card.className = "product-card";
         card.innerHTML = `
@@ -266,7 +283,7 @@
             <div class="product-controls">
               <label class="sr-only" for="size-${product.id}">Choose bottle size for ${product.name}</label>
               <select class="size-select" id="size-${product.id}">
-                ${sizes.map((size) => `<option value="${size.label}" data-price="${size.price}">${size.label} · R${size.price}</option>`).join("")}
+                ${productSizes.map((size) => `<option value="${size.label}" data-price="${size.price}">${size.label} · R${size.price}</option>`).join("")}
               </select>
               <button class="add-button" type="button" data-product="${product.id}" aria-label="Add ${product.name} to cart">Add</button>
             </div>
@@ -288,7 +305,7 @@
       const count = cart.reduce((sum, item) => sum + item.quantity, 0);
       document.getElementById("cart-count").textContent = count;
       document.getElementById("cart-total").textContent = `R${total}`;
-      document.getElementById("checkout").disabled = cart.length === 0;
+      document.getElementById("checkout").disabled = cart.length === 0 || !document.getElementById("delivery-method").value;
 
       if (cart.length === 0) {
         container.innerHTML = '<p class="empty-cart">Your cart is empty. Choose a fragrance to get started.</p>';
@@ -342,18 +359,21 @@
     document.getElementById("open-cart").addEventListener("click", () => setCartOpen(true));
     document.getElementById("close-cart").addEventListener("click", () => setCartOpen(false));
     document.getElementById("cart-backdrop").addEventListener("click", () => setCartOpen(false));
+    document.getElementById("delivery-method").addEventListener("change", updateCart);
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !document.getElementById("cart-panel").hidden) setCartOpen(false);
     });
 
     document.getElementById("checkout").addEventListener("click", () => {
-      if (cart.length === 0) return;
+      const deliveryMethod = document.getElementById("delivery-method");
+      if (cart.length === 0 || !deliveryMethod.value) return;
       const lines = cart.map((item) => `${item.name} (${item.size}) x${item.quantity}: R${item.price * item.quantity}`);
       const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const delivery = deliveryMethod.selectedOptions[0].textContent.trim();
       const packaging = document.getElementById("eco-packaging").checked
         ? "Minimal, recyclable packaging requested if available."
         : "No packaging preference.";
-      const message = ["Hi! I'd like to place this order:", ...lines, `Total: R${total}`, packaging].join("\n");
+      const message = ["Hi! I'd like to place this order:", ...lines, `Items total: R${total}`, `Delivery: ${delivery}`, "Please confirm the delivery fee.", packaging].join("\n");
       window.open(`https://wa.me/27744884815?text=${encodeURIComponent(message)}`, "_blank", "noopener");
     });
 
