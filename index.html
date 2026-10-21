@@ -44,7 +44,7 @@
     .cart-toggle { padding: 9px 13px; background: var(--gold); white-space: nowrap; }
     .cart-toggle:hover, .hero-link:hover, .add-button:hover, .checkout-button:hover, .whatsapp-float:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--line); }
 
-    .hero { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 32px; overflow: hidden; min-height: 430px; padding: clamp(42px, 7vw, 88px) clamp(22px, 9vw, 130px); border-bottom: 2px solid var(--line); background-color: #512247; background-image: radial-gradient(circle at 10% 20%, #ffd56a 0 2px, transparent 3px), radial-gradient(circle at 79% 15%, #fff9f5 0 2px, transparent 3px), radial-gradient(circle at 92% 72%, #64d2cb 0 2px, transparent 3px), radial-gradient(circle at 59% 83%, #ff9ac0 0 2px, transparent 3px), repeating-linear-gradient(135deg, transparent 0 28px, rgba(255,255,255,.035) 28px 30px); color: white; }
+    .hero { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 32px; overflow: hidden; min-height: 430px; padding: clamp(42px, 7vw, 88px) clamp(22px, 9vw, 130px); border-bottom: 2px solid var(--line); background-color: #e54372; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.12) 0 3px, transparent 3px 34px), linear-gradient(115deg, #bd286f 0%, #f45169 52%, #ffbd47 100%); color: white; }
     .eyebrow { margin: 0 0 12px; color: var(--gold); font-size: .83rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
     .hero h1 { max-width: 650px; margin: 0 0 16px; font: 700 clamp(3rem, 7vw, 6rem)/.98 var(--font-display); }
     .hero-copy { max-width: 500px; margin: 0 0 26px; color: #fff4f5; font-size: 1.08rem; }
@@ -204,7 +204,7 @@
     </section>
     <section class="contact" id="contact">
       <h2>Come say hello</h2>
-      <p><strong>Address:</strong> 16 Honeybird Street, Moteong, Tembisa</p>
+      <p><strong>Collection:</strong> Come and collect at 16 Honeybird Street, Moteong, Tembisa</p>
       <p><strong>Phone:</strong> <a class="contact-link" href="tel:0707380103">0707380103</a></p>
       <p><strong>WhatsApp:</strong> <a class="contact-link" href="https://wa.me/27744884815">0744884815</a></p>
       <a class="contact-whatsapp" href="https://wa.me/27744884815?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20your%20fragrances." target="_blank" rel="noopener">Chat with us on WhatsApp</a>
@@ -212,7 +212,7 @@
   </main>
 
   <footer>
-    <p>16 Honeybird Street, Moteong, Tembisa · <a href="tel:0707380103">0707380103</a> · <a href="https://wa.me/27744884815">WhatsApp us</a></p>
+    <p>Come and collect at 16 Honeybird Street, Moteong, Tembisa · <a href="tel:0707380103">0707380103</a> · <a href="https://wa.me/27744884815">WhatsApp us</a></p>
     <p>© 2026 Bright Notes Fragrance House</p>
   </footer>
 
@@ -261,6 +261,18 @@
       ]
     };
 
+    const prices100ml = {
+      "tool-box": 400,
+      "urban-elixir": 900,
+      "art-of-arabia": 900,
+      "classy-chic-girl": 350,
+      dolores: 350,
+      "champ-de-rose": 300,
+      imaginary: 350,
+      intimation: 350,
+      suave: 300
+    };
+
     const cart = [];
     const allProducts = Object.values(products).flat();
 
@@ -269,7 +281,7 @@
       items.forEach((product, index) => {
         const productSizes = [
           ...sizes,
-          { label: "100 ml", price: ["urban-elixir", "art-of-arabia"].includes(product.id) ? 900 : 350 }
+          { label: "100 ml", price: prices100ml[product.id] }
         ];
         const card = document.createElement("article");
         card.className = "product-card";
