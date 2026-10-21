@@ -28,7 +28,7 @@
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; scroll-padding-top: 90px; }
-    body { margin: 0; background-color: var(--paper); background-image: repeating-linear-gradient(135deg, rgba(189, 55, 107, .045) 0 1px, transparent 1px 26px), linear-gradient(110deg, #fff1d7 0%, #fff8f2 46%, #e7faf5 100%); background-attachment: fixed; color: var(--ink); font: 18px/1.55 var(--font-body); }
+    body { margin: 0; background-color: var(--paper); background-image: linear-gradient(rgba(255, 248, 239, .36), rgba(255, 248, 239, .42)), url("https://upload.wikimedia.org/wikipedia/commons/f/f8/Madiba_Statue_Nelson_Mandela_Square_%28cropped%29.jpg"); background-position: center, center 22%; background-size: cover; background-attachment: fixed; background-repeat: no-repeat; color: var(--ink); font: 18px/1.55 var(--font-body); }
     button, select, a { font: inherit; }
     button, select { color: inherit; }
     a { color: inherit; }
@@ -63,7 +63,7 @@
     .products-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
     .product-card { min-width: 0; overflow: hidden; border: 2px solid var(--line); border-radius: 8px; background: white; box-shadow: 4px 4px 0 var(--line); transition: transform 160ms ease, box-shadow 160ms ease; }
     .product-card:hover { transform: translateY(-4px); box-shadow: 6px 8px 0 var(--line); }
-    .product-art { display: grid; place-items: center; height: 270px; overflow: hidden; padding: 12px; border-bottom: 2px solid var(--line); background: #fff; }
+    .product-art { display: grid; place-items: center; height: 320px; overflow: hidden; padding: 8px; border-bottom: 2px solid var(--line); background: #fff; }
     .product-photo { display: block; width: 100%; height: 100%; border-radius: 4px; object-fit: contain; }
     .note-banner { position: relative; display: flex; align-items: center; min-height: 142px; overflow: hidden; margin-bottom: 20px; border: 2px solid var(--line); border-radius: 8px; background: var(--plum); }
     .note-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -97,6 +97,7 @@
     footer { padding: 22px; background: var(--ink); color: white; text-align: center; font-size: .9rem; }
     footer p { margin: 5px; }
     footer a { color: var(--gold); }
+    .image-credit { margin-top: 12px; font-size: .78rem; }
     .whatsapp-float { position: fixed; right: 18px; bottom: 18px; z-index: 4; display: inline-flex; align-items: center; justify-content: center; padding: 10px 16px; background: var(--lime); color: var(--ink); }
 
     .cart-backdrop { position: fixed; inset: 0; z-index: 5; background: rgba(25, 14, 27, .58); }
@@ -135,7 +136,7 @@
       .main-nav { gap: 7px; }
       .main-nav a { font-size: .82rem; }
       .products-grid { grid-template-columns: 1fr; }
-      .product-art { height: 300px; }
+      .product-art { height: 340px; }
       .note-banner { min-height: 158px; }
       .note-caption { max-width: 92%; padding: 16px; }
       .section-heading { display: block; }
@@ -169,7 +170,7 @@
     <div>
       <p class="eyebrow">Find your new signature scent</p>
       <h1>Big scent.<br />Bright personality.</h1>
-      <p class="hero-copy">Colourful fragrances for date nights, sunny days, and every lovely little moment in between.</p>
+      <p class="hero-copy">Leave a little magic wherever you go, with a fragrance that feels like you.</p>
       <a class="hero-link" href="#all-season">Explore fragrances</a>
     </div>
     <div class="hero-art">
@@ -213,6 +214,7 @@
 
   <footer>
     <p>Come and collect at 16 Honeybird Street, Moteong, Tembisa · <a href="tel:0707380103">0707380103</a> · <a href="https://wa.me/27744884815">WhatsApp us</a></p>
+    <p class="image-credit">Statue photo: <a href="https://commons.wikimedia.org/wiki/File:Madiba_Statue_Nelson_Mandela_Square_(cropped).jpg" target="_blank" rel="noopener">Jeff Attaway / Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener">CC BY 2.0</a>.</p>
     <p>© 2026 Bright Notes Fragrance House</p>
   </footer>
 
