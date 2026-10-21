@@ -13,14 +13,14 @@
     :root {
       color-scheme: light;
       --ink: #29152e;
-      --paper: #fff9f5;
+      --paper: #fff8ef;
       --plum: #55234e;
       --berry: #bd376b;
-      --coral: #ff725e;
-      --gold: #ffd56a;
-      --teal: #64d2cb;
+      --coral: #ff5d69;
+      --gold: #ffcf48;
+      --teal: #36c8c1;
       --pink: #ffc0d4;
-      --lime: #c5e87d;
+      --lime: #b8df55;
       --line: #29152e;
       --font-body: "DM Sans", sans-serif;
       --font-display: "Fraunces", Georgia, serif;
@@ -65,16 +65,29 @@
     .product-card:hover { transform: translateY(-4px); box-shadow: 6px 8px 0 var(--line); }
     .product-art { display: grid; place-items: center; height: 270px; overflow: hidden; padding: 12px; border-bottom: 2px solid var(--line); background: #fff; }
     .product-photo { display: block; width: 100%; height: 100%; border-radius: 4px; object-fit: contain; }
+    .note-banner { position: relative; display: flex; align-items: center; min-height: 142px; overflow: hidden; margin-bottom: 20px; border: 2px solid var(--line); border-radius: 8px; background: var(--plum); }
+    .note-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .note-banner::after { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(37, 18, 43, .9), rgba(37, 18, 43, .48) 56%, rgba(37, 18, 43, .08)); content: ""; }
+    .note-caption { position: relative; z-index: 1; max-width: 76%; padding: 18px 24px; color: white; }
+    .note-caption p { margin: 0; }
+    .note-kicker { color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .note-title { margin-top: 3px !important; font: 700 clamp(1.25rem, 3vw, 2rem)/1.15 var(--font-display); }
     .product-copy { padding: 16px; }
     .product-copy h3 { margin: 0 0 5px; font: 700 1.35rem var(--font-display); }
     .product-copy p { min-height: 48px; margin: 0 0 13px; color: #594f59; font-size: .94rem; line-height: 1.5; }
     .product-controls { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; }
     .size-select { width: 100%; min-height: 48px; padding: 8px; border: 2px solid var(--line); border-radius: 5px; background: white; font-weight: 600; }
     .add-button { padding: 8px 13px; background: var(--lime); }
-    #women .product-card { background: #fff0f4; box-shadow: 4px 4px 0 #8a3157; }
-    #women .product-card:hover { box-shadow: 6px 8px 0 #8a3157; }
+    #men .product-card { background: #effaf6; box-shadow: 4px 4px 0 #168d83; }
+    #men .product-card:hover { box-shadow: 6px 8px 0 #168d83; }
+    #men .add-button { background: var(--teal); }
+    #women .product-card { background: #fff0f4; box-shadow: 4px 4px 0 #d74770; }
+    #women .product-card:hover { box-shadow: 6px 8px 0 #d74770; }
     #women .product-copy h3 { color: #8a3157; }
-    #women .add-button { background: var(--gold); }
+    #women .add-button { background: #ff9fc4; }
+    #all-season .product-card { background: #fff8dc; box-shadow: 4px 4px 0 #c48a19; }
+    #all-season .product-card:hover { box-shadow: 6px 8px 0 #c48a19; }
+    #all-season .add-button { background: var(--gold); }
 
     .contact { margin-top: 64px; padding: clamp(22px, 5vw, 46px); border: 2px solid var(--line); border-radius: 8px; background: #d8f3ec; }
     .contact h2 { margin-bottom: 12px; }
@@ -119,6 +132,8 @@
       .main-nav a { font-size: .82rem; }
       .products-grid { grid-template-columns: 1fr; }
       .product-art { height: 300px; }
+      .note-banner { min-height: 158px; }
+      .note-caption { max-width: 92%; padding: 16px; }
       .section-heading { display: block; }
       .section-heading p { margin-top: 7px; }
       .whatsapp-float { right: 12px; bottom: 12px; }
@@ -161,14 +176,26 @@
   <main>
     <section class="collection" id="men">
       <div class="section-heading"><h2>For Him</h2><p>Fresh, bold, and ready to go.</p></div>
+      <div class="note-banner">
+        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1400&q=85" alt="Sunlight through a deep green forest" loading="lazy" />
+        <div class="note-caption"><p class="note-kicker">Scent mood</p><p class="note-title">Woodland depth · warm spice</p></div>
+      </div>
       <div class="products-grid" id="men-products"></div>
     </section>
     <section class="collection" id="women">
       <div class="section-heading"><h2>For Her</h2><p>Romantic florals and captivating favourites.</p></div>
+      <div class="note-banner">
+        <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1400&q=85" alt="Bright orange poppies beneath a blue sky" loading="lazy" />
+        <div class="note-caption"><p class="note-kicker">Scent mood</p><p class="note-title">Blooming florals · soft romance</p></div>
+      </div>
       <div class="products-grid" id="women-products"></div>
     </section>
     <section class="collection" id="all-season">
       <div class="section-heading"><h2>All-Season Favourites</h2><p>Lovely scents for every kind of day.</p></div>
+      <div class="note-banner">
+        <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1400&q=85" alt="Fresh ocean waves rolling into shore" loading="lazy" />
+        <div class="note-caption"><p class="note-kicker">Scent mood</p><p class="note-title">Ocean air · sunlit freshness</p></div>
+      </div>
       <div class="products-grid" id="all-season-products"></div>
     </section>
     <section class="contact" id="contact">
